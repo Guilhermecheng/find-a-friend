@@ -20,11 +20,21 @@ export class InMemoryOrgsRepository implements OrgsRepository {
             created_at: new Date()
         }
 
+        this.items.push(organization);
+
         return organization
     }
 
     async findById(id: string) {
         const organization = this.items.find(organization => organization.id === id);
+        
+        if(!organization) return null;
+
+        return organization
+    }
+
+    async findByEmail(email: string) {
+        const organization = this.items.find(organization => organization.email === email);
         
         if(!organization) return null;
 
