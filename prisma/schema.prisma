@@ -25,25 +25,28 @@ model Organization {
   whatsapp         String
   password_hash    String
   created_at       DateTime @default(now())
-  Dog              Dog[]
-}
-
-model Dog {
-  id              String       @id @default(uuid())
-  name            String
-  breed           String
-  age             Int
-  about           String
-  size            String
-  energy          String
-  dependency      String
-  space_size      String
-  city            String
-  state           String
-  organization    Organization @relation(fields: [organization_id], references: [id])
-  organization_id String
-  Attributes      String[]
-  registered_at   String
+  Pet              Pet[]
 
   @@map("organizations")
+}
+
+model Pet {
+  id            String   @id @default(uuid())
+  registered_at DateTime @default(now())
+  name          String
+  animal_type   String
+  breed         String
+  age           Int
+  about         String
+  size          String
+  energy        String
+  dependency    String
+  space_size    String
+  city          String
+  state         String
+
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
+
+  @@map("pets")
 }
