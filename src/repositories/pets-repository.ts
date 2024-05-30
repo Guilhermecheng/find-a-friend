@@ -1,16 +1,17 @@
 import { Pet, Prisma } from "@prisma/client";
 
 export interface searchManyByAttributesParams {
-    animalType: string;
-    breed?: string;
-    age?: number;
-    size?: string;
-    energy?: string;
-    dependency?: string;
+    city: string;
+    animalType: string | null;
+    breed: string | null;
+    age: number | null;
+    size: string | null;
+    energy: string | null;
+    dependency: string | null;
 }
 
 export interface PetsRepository {
     create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>
-    listManyByCity(city: string, page: number): Promise<Pet[]>
     findById(id: string): Promise<Pet | null>
+    searchManyByAttributes(data: searchManyByAttributesParams): Promise<Pet[] | null>
 }

@@ -1,5 +1,5 @@
 import { Pet, Prisma } from "@prisma/client";
-import { PetsRepository } from "../pets-repository";
+import { PetsRepository, searchManyByAttributesParams } from "../pets-repository";
 import { randomUUID } from "crypto";
 
 
@@ -27,16 +27,29 @@ export class InMemoryPetsRepository implements PetsRepository {
         this.items.push(pet);
         return pet
     }
-
-    async listManyByCity(city: string, page: number) {
-        return this.items.filter(item => item.city === city).slice((page - 1) * 20, page * 20)
-    }
-
+    
     async findById(id: string) {
         const pet = this.items.find(item => item.id === id)
-
+        
         if(!pet) return null;
-
+        
         return pet
+    }
+
+    async searchManyByAttributes(data: searchManyByAttributesParams) {
+        const pets = this.items.filter(item => {
+            for (let key in data) {
+                if(data[key as keyof typeof data]) {
+                    if (item[key as keyof typeof item] != data[key as keyof typeof data]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        })
+
+        if(!pets) return null;
+
+        return pets
     }
 }
