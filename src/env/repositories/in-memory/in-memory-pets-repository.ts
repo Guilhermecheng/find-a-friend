@@ -28,7 +28,15 @@ export class InMemoryPetsRepository implements PetsRepository {
         return pet
     }
 
-    async findManyByCity(city: string, page: number) {
+    async listManyByCity(city: string, page: number) {
         return this.items.filter(item => item.city === city).slice((page - 1) * 20, page * 20)
+    }
+
+    async findById(id: string) {
+        const pet = this.items.find(item => item.id === id)
+
+        if(!pet) return null;
+
+        return pet
     }
 }

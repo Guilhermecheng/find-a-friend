@@ -1,8 +1,6 @@
 import { describe, expect, test, it, beforeEach } from 'vitest'
-import { RegisterUseCase } from './register'
 import { InMemoryOrgsRepository } from '../repositories/in-memory/in-memory-orgs-repository'
-import { compare, hash } from 'bcryptjs'
-import { AccountAlreadyExistsError } from './errors/account-already-exists-error'
+import { hash } from 'bcryptjs'
 import { AuthenticateUseCase } from './authenticate'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
