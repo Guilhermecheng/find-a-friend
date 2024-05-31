@@ -11,6 +11,7 @@ interface SearchPetsUseCaseRequest {
     size?: string | null;
     energy?: string | null;
     dependency?: string | null;
+    spaceSize?: string | null;
 }
 
 interface SearchPetsUseCaseResponse {
@@ -28,6 +29,7 @@ export class SearchPetsUseCase {
         size = null,
         energy = null,
         dependency = null,
+        spaceSize = null,
     }: SearchPetsUseCaseRequest): Promise<SearchPetsUseCaseResponse> {
         if(!city || city === "") {
             throw new InvalidSearchError()
@@ -41,6 +43,7 @@ export class SearchPetsUseCase {
             size,
             energy,
             dependency,
+            spaceSize
         })
 
         if(!pets) {

@@ -37,19 +37,35 @@ export class InMemoryPetsRepository implements PetsRepository {
     }
 
     async searchManyByAttributes(data: searchManyByAttributesParams) {
-        const pets = this.items.filter(item => {
-            for (let key in data) {
-                if(data[key as keyof typeof data]) {
-                    if (item[key as keyof typeof item] != data[key as keyof typeof data]) {
-                        return false;
-                    }
-                }
-                return true;
+        
+        // var filterKeys = Object.keys(data)
+        var filterKeys = Object.keys(data).map(key => {
+            if(key === 'animalType') {
+                return 'animal_type'
             }
-        })
 
-        if(!pets) return null;
+            if(key === 'spaceSize') {
+                return 'space_size'
+            }
+            
+            return key
+        });
+        console.log(filterKeys)
 
-        return pets
+        return this.items.filter(function (eachObj) {
+            return filterKeys.every(function (eachKey) {
+                
+                if (!data[eachKey as keyof typeof data]) {
+                    return true; 
+                }
+                
+                if(typeof data[eachKey as keyof typeof data] === 'number') {
+                    return data[eachKey as keyof typeof data] === eachObj[eachKey as keyof typeof eachObj]
+                }
+
+                //@ts-ignore
+                return data[eachKey as keyof typeof data].includes(eachObj[eachKey as keyof typeof eachObj]) || data[eachKey as keyof typeof data] === eachObj[eachKey as keyof typeof eachObj];
+           });
+       });
     }
 }

@@ -8,6 +8,7 @@ export interface searchManyByAttributesParams {
     size: string | null;
     energy: string | null;
     dependency: string | null;
+    spaceSize: string | null;
 }
 
 export interface PetsRepository {
