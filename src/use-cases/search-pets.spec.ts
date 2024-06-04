@@ -146,8 +146,6 @@ describe('Search Pets Use Case', () => {
             energy: "high",
         })
 
-        console.log(pets)
-
         expect(pets.length).toEqual(1)
     })
 })

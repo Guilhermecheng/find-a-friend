@@ -2,13 +2,13 @@ import { Pet, Prisma } from "@prisma/client";
 
 export interface searchManyByAttributesParams {
     city: string;
-    animalType: string | null;
-    breed: string | null;
-    age: number | null;
-    size: string | null;
-    energy: string | null;
-    dependency: string | null;
-    spaceSize: string | null;
+    animalType?: string;
+    breed?: string;
+    age?: number;
+    size?: string;
+    energy?: string;
+    dependency?: string;
+    spaceSize?: string;
 }
 
 export interface PetsRepository {

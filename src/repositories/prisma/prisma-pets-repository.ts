@@ -26,24 +26,12 @@ export class PrismaPetsRepository implements PetsRepository {
         const pets = await prisma.pet.findMany({
             where: {
                 city: data.city,
-                breed: {
-                    contains: data.breed ?? "",
-                },
-                size: {
-                    contains: data.size ?? "",
-                },
-                energy: {
-                    contains: data.energy ?? "",
-                },
-                dependency: {
-                    contains: data.dependency ?? "",
-                },
-                animal_type: {
-                    contains: data.animalType ?? "",
-                },
-                space_size: {
-                    contains: data.spaceSize ?? "",
-                },
+                breed: data.breed,
+                size: data.size,
+                energy: data.energy,
+                dependency: data.dependency,
+                animal_type: data.animalType,
+                space_size: data.spaceSize,
             }
         })
 

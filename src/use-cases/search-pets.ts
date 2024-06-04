@@ -5,13 +5,13 @@ import { InvalidSearchError } from "./errors/invalid-search-error";
 
 interface SearchPetsUseCaseRequest {
     city: string;
-    animalType?: string | null;
-    breed?: string | null;
-    age?: number | null;
-    size?: string | null;
-    energy?: string | null;
-    dependency?: string | null;
-    spaceSize?: string | null;
+    animalType?: string;
+    breed?: string;
+    age?: number;
+    size?: string;
+    energy?: string;
+    dependency?: string;
+    spaceSize?: string;
 }
 
 interface SearchPetsUseCaseResponse {
@@ -23,13 +23,13 @@ export class SearchPetsUseCase {
 
     async execute({
         city,
-        animalType = null,
-        breed = null,
-        age = null,
-        size = null,
-        energy = null,
-        dependency = null,
-        spaceSize = null,
+        animalType,
+        breed,
+        age,
+        size,
+        energy,
+        dependency,
+        spaceSize,
     }: SearchPetsUseCaseRequest): Promise<SearchPetsUseCaseResponse> {
         if(!city || city === "") {
             throw new InvalidSearchError()
