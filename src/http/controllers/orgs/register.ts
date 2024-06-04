@@ -1,3 +1,4 @@
+import { AccountAlreadyExistsError } from "@/use-cases/errors/account-already-exists-error";
 import { makeRegisterUseCase } from "@/use-cases/factories/make-register-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
@@ -27,19 +28,32 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
         password 
     } = registerOrgBodySchema.parse(request.body)
 
-    const createOrgUseCase = makeRegisterUseCase()
-
-    const { organization } = await createOrgUseCase.execute({
-        responsibleName,
-        title,
-        email,
-        cep,
-        city,
-        state,
-        address,
-        whatsapp,
-        password
+    try {
+        const createOrgUseCase = makeRegisterUseCase()
+    
+        await createOrgUseCase.execute({
+            responsibleName,
+            title,
+            email,
+            cep,
+            city,
+            state,
+            address,
+            whatsapp,
+            password
+        })
+        
+    } catch(err) {
+        if(err instanceof AccountAlreadyExistsError) {
+            return reply.status(409).send({
+                message: err.message,
+            })
+        }
+        
+        throw err
+    }
+    
+    return reply.status(201).send({
+        message: "Organização cadastrada com sucesso!"
     })
-
-    return reply.status(201).send({ organization })
 }

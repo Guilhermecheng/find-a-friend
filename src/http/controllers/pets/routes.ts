@@ -4,7 +4,7 @@ import { verifyJWT } from "@/http/middlewares/verify-jwt";
 import { getPetInfo } from "./pet-info";
 import { searchPets } from "./search-pets";
 
-export function petsRoutes(app: FastifyInstance) {
+export async function petsRoutes(app: FastifyInstance) {
 
     app.get('/pet/:id', getPetInfo)
     app.get('/pets', searchPets)
