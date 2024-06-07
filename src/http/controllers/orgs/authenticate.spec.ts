@@ -34,11 +34,24 @@ describe('Authenticate Organization (e2e)', () => {
             })
 
         expect(response.statusCode).toEqual(200)
-        // expect(response.body.message).toEqual("Organização cadastrada com sucesso!")
+        expect(response.body).toEqual({
+            token: expect.any(String),
+            organization_id: expect.any(String),
+        })
     })
 
-        // it('should not be albe to authenticate a non-existent email', async () => {
+        it('should not be albe to authenticate a non-existent email', async () => {
+            const response = await request(app.server)
+            .post('/sessions')
+            .send({
+                email: "email_teste_123@teste.com",
+                password: "123456"
+            })
 
-        // })
+            expect(response.statusCode).toEqual(400)
+            expect(response.body).toEqual({
+                message: expect.any(String),
+            })
+        })
 
 })

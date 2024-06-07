@@ -47,6 +47,7 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
             .status(200)
             .send({
                 token,
+                organization_id: organization.id,
             })
 
     } catch(err) {
